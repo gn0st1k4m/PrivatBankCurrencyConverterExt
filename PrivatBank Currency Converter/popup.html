@@ -1,0 +1,67 @@
+<!DOCTYPE html>   
+ <html>
+	<head>
+		<meta charset="utf-8" >
+		<script language="javascript" src="popup.js"></script>
+
+		<style>
+			*{
+				text-align: center;
+			}
+
+			tr{
+				align: center;
+			}
+
+			.rates{
+				display: inline;
+				color: green;
+			}
+
+			h4{
+				margin: 0;
+				display: inline;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<table>
+				<tr>
+					<td colspan="2">
+						<h4>Current PrivatBank Currency:</h4>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><h4>USD:</h4> <div class="rates" id="usdRate"></div><h4>$</h4></td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><h4>EUR:</h4> <div class="rates" id="eurRate"></div><h4>€</h4></td>
+				</tr>
+
+
+				<tr>
+					<td colspan="2"><input id="value" type="text" size="20"></td>
+				</tr>
+
+				<tr>
+					<td>
+						<input name="currency" type="radio" value="USD" id="$" checked="checked"><label for="$">USD->UAH</label>
+					</td>
+
+					<td>
+						<label for="₴">UAH->USD</label><input name="currency" type="radio" value="UAH" id="₴">
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+						<input id="resultValue" type="text" size="20" readonly>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
