@@ -43,7 +43,7 @@ function Calculate(){
 document.addEventListener('DOMContentLoaded', function () {
 	GetRate();
 
-	document.getElementById("value").onchange = Calculate;
+	document.getElementById("value").onkeyup = Calculate;
 	document.getElementById("₴").onchange = Calculate;
 	document.getElementById("$").onchange = Calculate;
 });
