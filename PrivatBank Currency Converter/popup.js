@@ -31,11 +31,11 @@ function Calculate(){
 
 	switch(active){
 		case "USD":
-			document.getElementById("resultValue").value = Math.ceil(currentUsdRate * userValue) + " ₴";
+			document.getElementById("resultValue").value = currentUsdRate * userValue + " ₴";
 			break;
 
 		case "UAH":
-			document.getElementById("resultValue").value = Math.ceil(userValue / currentUsdRate) + " $";
+			document.getElementById("resultValue").value = userValue / currentUsdRate + " $";
 			break;
 	}
 }
@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	GetRate();
 
 	document.getElementById("value").onkeyup = Calculate;
+	document.getElementById("value").onpaste = function(){setTimeout(Calculate, 0);}; // after paste event
 	document.getElementById("₴").onchange = Calculate;
 	document.getElementById("$").onchange = Calculate;
 });
