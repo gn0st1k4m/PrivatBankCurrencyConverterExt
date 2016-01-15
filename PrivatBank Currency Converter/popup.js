@@ -75,7 +75,7 @@ function Calculate(){
 			break;
 	}
 
-	document.getElementById("resultValue").value = result.toFixed(2) + " $";
+	document.getElementById("resultValue").value = result.toFixed(2);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
