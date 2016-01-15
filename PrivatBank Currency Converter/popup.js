@@ -1,5 +1,8 @@
-var currentUsdRate;
-var currentEurRate;
+var USD = 0;
+var EUR = 1;
+var RUB = 2;
+
+var currentRates;
 
 function GetRate(){
 	var xhr = new XMLHttpRequest();
@@ -8,14 +11,30 @@ function GetRate(){
 		if (xhr.readyState == 4) {
 			if (xhr.status == 200) {
 				var xmlDoc = xhr.responseXML;
-				currentEurRate = xmlDoc.getElementsByTagName("exchangerate")[0].getAttribute("sale");
 
-				currentUsdRate = xmlDoc.getElementsByTagName("exchangerate")[2].getAttribute("sale");
+				var eur = xmlDoc.getElementsByTagName("exchangerate")[0];
+				var rub = xmlDoc.getElementsByTagName("exchangerate")[1];
+				var usd = xmlDoc.getElementsByTagName("exchangerate")[2];
 
+				currentRates = [{
+					buy: usd.getAttribute("buy"),
+					sale: usd.getAttribute("sale")
+				}, {
+					buy: eur.getAttribute("buy"),
+					sale: eur.getAttribute("sale")
+				}, {
+					buy: rub.getAttribute("buy"),
+					sale: rub.getAttribute("sale")
+				}];
 
-				document.getElementById("usdRate").innerHTML = currentUsdRate;
+				document.getElementById("usdBuy").innerHTML = currentRates[USD].buy;
+				document.getElementById("usdSale").innerHTML = currentRates[USD].sale;
 
-				document.getElementById("eurRate").innerHTML = currentEurRate;
+				document.getElementById("eurBuy").innerHTML = currentRates[EUR].buy;
+				document.getElementById("eurSale").innerHTML = currentRates[EUR].sale;
+
+				document.getElementById("rubBuy").innerHTML = currentRates[RUB].buy;
+				document.getElementById("rubSale").innerHTML = currentRates[RUB].sale;
 			}
 		}
 	};
@@ -25,19 +44,38 @@ function GetRate(){
 
 function Calculate(){
 	var userValue = document.getElementById("value").value;
-	var active = document.querySelector('input[name="currency"]:checked').value;
+	var element = document.getElementById("currencyList");
+	var active = element.options[element.selectedIndex].value;
 
-	document.getElementById("resultValue").style.color = "red";
+	var result = 0;
 
 	switch(active){
-		case "USD":
-			document.getElementById("resultValue").value = currentUsdRate * userValue + " ₴";
+		case "usdToUah":
+			result = currentRates[USD].buy * userValue;
 			break;
 
-		case "UAH":
-			document.getElementById("resultValue").value = userValue / currentUsdRate + " $";
+		case "uahToUsd":
+			result = userValue / currentRates[USD].sale;
+			break;
+
+		case "eurToUah":
+			result = currentRates[EUR].buy * userValue;
+			break;
+
+		case "uahToeur":
+			result = userValue / currentRates[EUR].sale;
+			break;
+
+		case "rubToUah":
+			result = currentRates[RUB].buy * userValue;
+			break;
+
+		case "uahToRub":
+			result = userValue / currentRates[RUB].sale;
 			break;
 	}
+
+	document.getElementById("resultValue").value = result.toFixed(2) + " $";
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -45,6 +83,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	document.getElementById("value").onkeyup = Calculate;
 	document.getElementById("value").onpaste = function(){setTimeout(Calculate, 0);}; // after paste event
-	document.getElementById("₴").onchange = Calculate;
-	document.getElementById("$").onchange = Calculate;
+	document.getElementById("currencyList").onchange = Calculate;
+});
+
+document.addEventListener("contextmenu", function (event) {
+	event.preventDefault();
 });

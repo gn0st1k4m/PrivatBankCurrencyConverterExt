@@ -22,6 +22,20 @@
 				margin: 0;
 				display: inline;
 			}
+
+			input{
+				width: 180px;
+			}
+
+			select{
+				width: 184px;
+			}
+
+			#resultValue{
+				color: red;
+			}
+
+
 		</style>
 	</head>
 	<body>
@@ -29,31 +43,79 @@
 			<table>
 				<tr>
 					<td colspan="2">
-						<h4>Current PrivatBank Currency:</h4>
+						<img src="icons/privatbank.png" alt="privatbank logo" width="85%">
 					</td>
 				</tr>
 
 				<tr>
-					<td colspan="2"><h4>USD:</h4> <div class="rates" id="usdRate"></div><h4>$</h4></td>
+					<td colspan="2">
+						<table width="100%">
+							<tr>
+								<th>Currency</th>
+								<th>Buy</th>
+								<th>Sale</th>
+							</tr>
+
+							<tr>
+								<td>
+									EUR/UAH
+								</td>
+								<td>
+									<div class="rates" id="eurBuy"></div>
+								</td>
+								<td>
+									<div class="rates" id="eurSale"></div>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td>
+									USD/UAH
+								</td>
+								<td>
+									<div class="rates" id="usdBuy"></div>
+								</td>
+								<td>
+									<div class="rates" id="usdSale"></div>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td>
+									RUB/UAH
+								</td>
+								<td>
+									<div class="rates" id="rubBuy"></div>
+								</td>
+								<td>
+									<div class="rates" id="rubSale"></div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="2">
+						<input id="value" type="text" size="20" autofocus>
+					</td>
 				</tr>
 
 				<tr>
-					<td colspan="2"><h4>EUR:</h4> <div class="rates" id="eurRate"></div><h4>€</h4></td>
-				</tr>
-
-
-				<tr>
-					<td colspan="2"><input id="value" type="text" size="20" autofocus></td>
-				</tr>
-
-				<tr>
-					<td>
-						<input name="currency" type="radio" value="USD" id="$" checked="checked"><label for="$">USD->UAH</label>
+					<td colspan="2">
+						<select id="currencyList">
+							<option value="usdToUah">USD->UAH</option>
+							<option value="uahToUsd">UAH->USD</option>
+							<option value="eurToUah">EUR->UAH</option>
+							<option value="uahToEur">UAH->EUR</option>
+							<option value="rubToUah">RUB->UAH</option>
+							<option value="uahToRub">UAH->RUB</option>
+						</select>
 					</td>
 
-					<td>
-						<label for="₴">UAH->USD</label><input name="currency" type="radio" value="UAH" id="₴">
-					</td>
 				</tr>
 
 				<tr>
