@@ -4,7 +4,7 @@
 	"short_name" : "PrivatBank Currency Converter",
 	"version" : "1.6",
 	"author" : "Andrew Shevchuk-Yuganets(Mazillka)",
-	"description" : "PrivatBank USD Currency Converter",
+	"description" : "PrivatBank Currency Converter",
 	
 	"icons" : {
 		"16" : "icons/16x16.png",
@@ -20,5 +20,3 @@
 		"default_popup": "popup.html"
     }
 }
-
-
