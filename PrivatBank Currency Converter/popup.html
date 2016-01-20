@@ -2,33 +2,26 @@
  <html>
 	<head>
 		<meta charset="utf-8" >
+		
+		
+		<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+		<script language="javascript" src="libs/jquery-2.2.0.min.js"></script>
+		<script language="javascript" src="libs/bootstrap/js/bootstrap.min.js"></script>
+			
 		<script language="javascript" src="popup.js"></script>
-
+		
 		<style>
-			*{
+			body{
+				width: 300px;
 				text-align: center;
 			}
-
-			tr{
-				align: center;
-			}
-
+		
 			.rates{
-				display: inline;
 				color: green;
 			}
 
-			h4{
-				margin: 0;
-				display: inline;
-			}
-
-			input{
-				width: 180px;
-			}
-
-			select{
-				width: 184px;
+			input, select{				
+				margin-bottom: 5px;
 			}
 
 			#resultValue{
@@ -43,70 +36,69 @@
 			<table>
 				<tr>
 					<td colspan="2">
-						<img src="icons/privatbank.png" alt="privatbank logo" width="85%">
+						<img src="icons/privatbank.png" alt="privatbank logo" width="85%" align="middle">
 					</td>
 				</tr>
 
 				<tr>
 					<td colspan="2">
-						<table width="100%">
-							<tr>
-								<th>Currency</th>
-								<th>Buy</th>
-								<th>Sale</th>
-							</tr>
+					
+						<table width="100%" class="table table-striped">
+							<thead>
+								<tr>
+									<th>Currency</th>
+									<th>Buy</th>
+									<th>Sale</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										EUR/UAH
+									</td>
+									<td>
+										<div class="rates" id="eurBuy"></div>
+									</td>
+									<td>
+										<div class="rates" id="eurSale"></div>
+									</td>
+								</tr>
 
-							<tr>
-								<td>
-									EUR/UAH
-								</td>
-								<td>
-									<div class="rates" id="eurBuy"></div>
-								</td>
-								<td>
-									<div class="rates" id="eurSale"></div>
-								</td>
+								<tr>
+									<td>
+										USD/UAH
+									</td>
+									<td>
+										<div class="rates" id="usdBuy"></div>
+									</td>
+									<td>
+										<div class="rates" id="usdSale"></div>
+									</td>
+								</tr>
 
-							</tr>
-
-							<tr>
-								<td>
-									USD/UAH
-								</td>
-								<td>
-									<div class="rates" id="usdBuy"></div>
-								</td>
-								<td>
-									<div class="rates" id="usdSale"></div>
-								</td>
-
-							</tr>
-
-							<tr>
-								<td>
-									RUB/UAH
-								</td>
-								<td>
-									<div class="rates" id="rubBuy"></div>
-								</td>
-								<td>
-									<div class="rates" id="rubSale"></div>
-								</td>
-							</tr>
+								<tr>
+									<td>
+										RUB/UAH
+									</td>
+									<td>
+										<div class="rates" id="rubBuy"></div>
+									</td>
+									<td>
+										<div class="rates" id="rubSale"></div>
+									</td>
+								</tr>
+							</tbody>
 						</table>
+						
 					</td>
 				</tr>
 
 
 				<tr>
 					<td colspan="2">
-						<input id="value" type="text" size="20" autofocus>
-					</td>
-				</tr>
+						<input id="userValue" type="text" size="20" autofocus class="form-control">
 
-				<tr>
-					<td colspan="2">
-						<select id="currencyList">
+						<select id="currencyList" class="form-control">
 							<option value="usdToUah">USD->UAH</option>
 							<option value="uahToUsd">UAH->USD</option>
 							<option value="eurToUah">EUR->UAH</option>
@@ -114,13 +106,9 @@
 							<option value="rubToUah">RUB->UAH</option>
 							<option value="uahToRub">UAH->RUB</option>
 						</select>
-					</td>
 
-				</tr>
+						<input id="resultValue" type="text" size="20" readonly class="form-control">
 
-				<tr>
-					<td colspan="2">
-						<input id="resultValue" type="text" size="20" readonly>
 					</td>
 				</tr>
 			</table>

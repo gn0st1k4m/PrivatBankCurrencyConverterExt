@@ -1,51 +1,12 @@
-var USD = 0;
-var EUR = 1;
-var RUB = 2;
+var EUR = 0;
+var RUB = 1;
+var USD = 2;
 
 var currentRates;
 
-function GetRate(){
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5", true);
-	xhr.onreadystatechange = function () {
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
-				var xmlDoc = xhr.responseXML;
-
-				var eur = xmlDoc.getElementsByTagName("exchangerate")[0];
-				var rub = xmlDoc.getElementsByTagName("exchangerate")[1];
-				var usd = xmlDoc.getElementsByTagName("exchangerate")[2];
-
-				currentRates = [{
-					buy: usd.getAttribute("buy"),
-					sale: usd.getAttribute("sale")
-				}, {
-					buy: eur.getAttribute("buy"),
-					sale: eur.getAttribute("sale")
-				}, {
-					buy: rub.getAttribute("buy"),
-					sale: rub.getAttribute("sale")
-				}];
-
-				document.getElementById("usdBuy").innerHTML = currentRates[USD].buy;
-				document.getElementById("usdSale").innerHTML = currentRates[USD].sale;
-
-				document.getElementById("eurBuy").innerHTML = currentRates[EUR].buy;
-				document.getElementById("eurSale").innerHTML = currentRates[EUR].sale;
-
-				document.getElementById("rubBuy").innerHTML = currentRates[RUB].buy;
-				document.getElementById("rubSale").innerHTML = currentRates[RUB].sale;
-			}
-		}
-	};
-	xhr.send(null);
-}
-
-
 function Calculate(){
-	var userValue = document.getElementById("value").value;
-	var element = document.getElementById("currencyList");
-	var active = element.options[element.selectedIndex].value;
+	var userValue = $("#userValue").val();
+	var active = $("#currencyList option:selected").val();
 
 	var result = 0;
 
@@ -62,7 +23,7 @@ function Calculate(){
 			result = currentRates[EUR].buy * userValue;
 			break;
 
-		case "uahToeur":
+		case "uahToEur":
 			result = userValue / currentRates[EUR].sale;
 			break;
 
@@ -75,15 +36,49 @@ function Calculate(){
 			break;
 	}
 
-	document.getElementById("resultValue").value = result.toFixed(2);
+	$("#resultValue").val(result.toFixed(2));
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-	GetRate();
+$(function() {
+	$.ajax({
+		url: 'https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5',
+		type: 'GET',
+		dataType: 'xml',
+		success: function(data){
+			var eur = $(data).find("exchangerate")[EUR];
+			var rub = $(data).find("exchangerate")[RUB];
+			var usd = $(data).find("exchangerate")[USD];
 
-	document.getElementById("value").onkeyup = Calculate;
-	document.getElementById("value").onpaste = function(){setTimeout(Calculate, 0);}; // after paste event
-	document.getElementById("currencyList").onchange = Calculate;
+			currentRates = [{
+				buy: $(eur).attr("buy"),
+				sale: $(eur).attr("sale")
+			}, {
+				buy: $(rub).attr("buy"),
+				sale: $(rub).attr("sale")
+			},{
+				buy: $(usd).attr("buy"),
+				sale: $(usd).attr("sale")
+			}];
+
+			$("#eurBuy").html(currentRates[EUR].buy);
+			$("#eurSale").html(currentRates[EUR].sale);
+
+			$("#rubBuy").html(currentRates[RUB].buy);
+			$("#rubSale").html(currentRates[RUB].sale);
+
+			$("#usdBuy").html(currentRates[USD].buy);
+			$("#usdSale").html(currentRates[USD].sale);
+		}
+	});
+	
+	
+	$("#userValue").keyup(function(){
+		Calculate();
+	});
+	
+	$("#currencyList").change(function(){
+		Calculate();
+	});
 });
 
 document.addEventListener("contextmenu", function (event) {
