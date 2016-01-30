@@ -41,24 +41,11 @@ function Calculate(){
 
 $(function() {
 	$.ajax({
-		url: 'https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5',
+		url: 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5',
 		type: 'GET',
-		dataType: 'xml',
+		dataType: 'json',
 		success: function(data){
-			var eur = $(data).find("exchangerate")[EUR];
-			var rub = $(data).find("exchangerate")[RUB];
-			var usd = $(data).find("exchangerate")[USD];
-
-			currentRates = [{
-				buy: $(eur).attr("buy"),
-				sale: $(eur).attr("sale")
-			}, {
-				buy: $(rub).attr("buy"),
-				sale: $(rub).attr("sale")
-			},{
-				buy: $(usd).attr("buy"),
-				sale: $(usd).attr("sale")
-			}];
+			currentRates = data;
 
 			$("#eurBuy").html(currentRates[EUR].buy);
 			$("#eurSale").html(currentRates[EUR].sale);
@@ -70,8 +57,7 @@ $(function() {
 			$("#usdSale").html(currentRates[USD].sale);
 		}
 	});
-	
-	
+
 	$("#userValue").keyup(function(){
 		Calculate();
 	});

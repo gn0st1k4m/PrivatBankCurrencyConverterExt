@@ -2,7 +2,7 @@
 	"manifest_version" : 2,
 	"name" : "PrivatBank Currency Converter",
 	"short_name" : "PrivatBank Currency Converter",
-	"version" : "1.7",
+	"version" : "1.8",
 	"author" : "Andrew Shevchuk-Yuganets(Mazillka)",
 	"description" : "PrivatBank Currency Converter",
 	
